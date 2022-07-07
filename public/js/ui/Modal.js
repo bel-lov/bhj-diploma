@@ -11,8 +11,12 @@ class Modal {
    * Если переданный элемент не существует,
    * необходимо выкинуть ошибку.
    * */
-  constructor(element){
-
+  constructor(element) {
+    this.element = element;
+    if (element = null) {
+      throw new Error('something went wrong')
+    }
+    this.registerEvents()
   }
 
   /**
@@ -21,7 +25,12 @@ class Modal {
    * (с помощью метода Modal.onClose)
    * */
   registerEvents() {
+const buttonDataDismiss = document.querySelectorAll('[data-dismiss="modal"]');
 
+buttonDataDismiss[0].addEventListener('click', ()=>{
+  console.log('true');
+  onClose();
+})
   }
 
   /**
@@ -36,12 +45,28 @@ class Modal {
    * со значением «block»
    * */
   open() {
-
+      this.element.style.display = 'block';
   }
+
   /**
    * Закрывает окно: удаляет CSS-свойство display
    * */
   close(){
 
   }
+}
+
+let a = 1;
+//Где писать код по открытию модальных окон?
+//где создать элемент класса Модал?
+const buttonMenu = document.querySelectorAll('.menu-item')
+console.log(buttonMenu.length)
+console.log(buttonMenu)
+
+for (let i = 0; i < buttonMenu.length; i++) {
+  buttonMenu[i].addEventListener('click', (e) => {
+    e.preventDefault
+    const modal = new Modal(a);//когда создается экземпляр класса откуда беруться данные, что туда передавать?
+    console.log(modal)
+  })
 }
