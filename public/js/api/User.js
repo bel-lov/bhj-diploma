@@ -9,7 +9,7 @@ class User {
    * локальном хранилище.
    * */
   static setCurrent(user) {
-
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   /**
@@ -17,7 +17,9 @@ class User {
    * пользователе из локального хранилища.
    * */
   static unsetCurrent() {
-
+    if(localStorage.getItem('user')) {
+      localStorage.removeItem('user');
+    }
   }
 
   /**
@@ -25,7 +27,7 @@ class User {
    * из локального хранилища
    * */
   static current() {
-
+    return JSON.parse(localStorage.getItem('user'));
   }
 
   /**
@@ -64,7 +66,15 @@ class User {
    * User.setCurrent.
    * */
   static register(data, callback) {
-
+    let url = this.URL + '/register';
+    const xhr = createRequest(Object.assign({url:url, method: 'POST'}, data), (err, data) => {
+      if(!err) {
+        if(data.success) {
+          this.setCurrent({id: data.user.id, name: data.user.name, email: data.user.email});
+        }
+      }
+      //callback(err, data);
+    });
   }
 
   /**
@@ -75,3 +85,4 @@ class User {
 
   }
 }
+User.URL = '/user';

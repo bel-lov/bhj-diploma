@@ -13,7 +13,7 @@ class Modal {
    * */
   constructor(element) {
     this.element = element;
-    if (element = null) {
+    if (element === ' ') {
       throw new Error('something went wrong')
     }
     this.registerEvents()
@@ -25,12 +25,13 @@ class Modal {
    * (с помощью метода Modal.onClose)
    * */
   registerEvents() {
-const buttonDataDismiss = document.querySelectorAll('[data-dismiss="modal"]');
+    const buttonDataDismiss = document.querySelectorAll('[data-dismiss="modal"]');
 
-buttonDataDismiss[0].addEventListener('click', ()=>{
-  console.log('true');
-  onClose();
-})
+    for (let i = 0; i < buttonDataDismiss.length; i++) {
+      buttonDataDismiss[i].addEventListener('click', () => {
+        this.onClose();
+      })
+    }
   }
 
   /**
@@ -38,35 +39,22 @@ buttonDataDismiss[0].addEventListener('click', ()=>{
    * Закрывает текущее окно (Modal.close())
    * */
   onClose(e) {
-
+    // e.preventDefault();
+    this.close();
   }
   /**
    * Открывает окно: устанавливает CSS-свойство display
    * со значением «block»
    * */
   open() {
-      this.element.style.display = 'block';
+    this.element.style.display = 'block';
   }
 
   /**
    * Закрывает окно: удаляет CSS-свойство display
    * */
-  close(){
-
+  close() {
+    // this.element.removeAttribute("style");
+    this.element.style.display = null;
   }
-}
-
-let a = 1;
-//Где писать код по открытию модальных окон?
-//где создать элемент класса Модал?
-const buttonMenu = document.querySelectorAll('.menu-item')
-console.log(buttonMenu.length)
-console.log(buttonMenu)
-
-for (let i = 0; i < buttonMenu.length; i++) {
-  buttonMenu[i].addEventListener('click', (e) => {
-    e.preventDefault
-    const modal = new Modal(a);//когда создается экземпляр класса откуда беруться данные, что туда передавать?
-    console.log(modal)
-  })
 }
