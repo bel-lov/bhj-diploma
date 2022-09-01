@@ -11,14 +11,20 @@ class Modal {
    * Если переданный элемент не существует,
    * необходимо выкинуть ошибку.
    * */
+  // constructor(element) {
+  //   this.element = element;
+  //   if (element === ' ') {
+  //     throw new Error('something went wrong')
+  //   }
+  //   this.registerEvents()
+  // }
   constructor(element) {
-    this.element = element;
-    if (element === ' ') {
-      throw new Error('something went wrong')
-    }
-    this.registerEvents()
+  if (!element) {
+    throw new Error("Передан пустой элемент!");
   }
-
+  this.element = element;
+  this.registerEvents();
+}
   /**
    * При нажатии на элемент с data-dismiss="modal"
    * должен закрыть текущее окно

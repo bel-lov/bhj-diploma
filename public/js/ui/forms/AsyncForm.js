@@ -20,6 +20,7 @@ class AsyncForm {
     this.registerEvents();
   }
 
+
   /**
    * Необходимо запретить отправку формы и в момент отправки
    * вызывает метод submit()
@@ -39,24 +40,21 @@ class AsyncForm {
    * }
    * */
   getData() {
-    let formData = new FormData(this.element);
-    let entries = formData.entries();
-    let obj = {};
-    console.log(obj)
-
-    for (let item of entries) {
-      let key = item[0],
-      value = item[1];
-
-      obj[key] = value;
+    const formData = new FormData(this.element);
+    const newArray = formData.entries();
+    const output = {};
+    
+    for (let item of newArray) {
+      let key = item[0];
+      let value = item[1];
+      output[key] = value;
     }
-    console.log(obj)
-    return obj;
+
+    return output;
   }
 
   onSubmit(options){
-    console.log( options);//не получает объект из submit()??????????
-  
+    
   }
 
   /**
@@ -64,11 +62,8 @@ class AsyncForm {
    * данные, полученные из метода getData()
    * */
   submit() {
-    this.onSubmit(this.getData()) 
-    // let options = {
-    //   data: this.getData(),
-    // };
-    // this.onSubmit(options);
-    // console.log(options.data)
+    const outputData = {};
+    outputData.data = this.getData();
+    this.onSubmit(outputData);
   }
 }
